@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get 'welcome/index'
+
   root 'welcome#index'
   resources :articles do
     resources :section, except: [:show] do
@@ -9,4 +12,5 @@ Rails.application.routes.draw do
     resources :revisions, only: [:index, :show]
   end
   resources :users, except: [:index, :edit, :update, :destroy]
+
 end

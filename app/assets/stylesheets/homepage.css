@@ -1,0 +1,56 @@
+body {
+  background-color: #F8F8F8;
+  font-family: 'Inconsolata', monospace;
+}
+
+.container {
+  width: 100% !important;
+}
+
+.homepage-headline {
+  font-size: 32px;
+}
+
+.article-information {
+  width: 430px;
+  display: inline-block;
+  float: left;
+  text-align: left;
+}
+
+.article-title{
+  display: block;
+  font-size: 40px;
+}
+
+hr {
+  border-color: black !important;
+}
+
+.navbar {
+  background-color: #bdbdbd;
+  font-color: white !important;
+}
+
+.homepage-block {
+  height: 500px !important;
+  text-align: center;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.image-block {
+  height: 175px;
+  width: 175px;
+  display: inline-block;
+  float: left;
+}
+
+@media only screen and(min-width: 1606px) {
+  .article-information {
+    width: 350px;
+  }
+}

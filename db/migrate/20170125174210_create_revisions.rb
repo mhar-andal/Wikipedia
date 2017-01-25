@@ -3,7 +3,6 @@ class CreateRevisions < ActiveRecord::Migration[5.0]
     create_table :revisions do |t|
       t.string :title
       t.text :paragraph
-      t.integer :content_id
       t.references :revisionable, polymorphic: true
 
       t.timestamps

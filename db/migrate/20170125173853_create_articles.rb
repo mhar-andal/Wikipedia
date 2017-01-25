@@ -3,7 +3,7 @@ class CreateArticles < ActiveRecord::Migration[5.0]
     create_table :articles do |t|
       t.integer :author_id
       t.string :publication_status
-      t.integer :cuurent_revision_id
+      t.integer :current_revision_id
 
       t.timestamps
     end

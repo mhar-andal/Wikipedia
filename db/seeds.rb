@@ -5,9 +5,106 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+def create_random_paragraph
+  paragraph = ""
+  rand(5..20).times do
+    paragraph = paragraph + " " + Faker::Hacker.say_something_smart
+  end
+  paragraph
+end
 
-# 50.times do
-#   User.create({
-#     username: Faker::Inter
-#     })
-# end
+12.times do
+  User.create(
+    username: Faker::Internet.user_name,
+    password: "password"
+    )
+end
+
+User.create(
+  username: "Dereck",
+  password: "password",
+  admin: true
+  )
+User.create(
+  username: "Mhar",
+  password: "password",
+  admin: true
+  )
+User.create(
+  username: "Kam",
+  password: "password",
+  admin: true
+  )
+
+x = 201
+100.times do
+  Article.create(
+    author_id: rand(1..15),
+    publication_status: ["published", "unpublished", "needs sources"].sample,
+    current_revision_id: x
+    )
+  x += 1
+end
+x = 901
+300.times do
+  Section.create(
+    article_id: rand(1..100),
+    current_revision_id: x
+    )
+  x += 1
+end
+
+300.times do
+  Note.create(
+    comment: Faker::ChuckNorris.fact,
+    article_id: rand(1..100)
+    )
+  Bibliography.create(
+    article_id: rand(1..100),
+    reference: [Faker::Internet.url, Faker::Book.title].sample,
+    resource_type: ["Book", "Link"].sample
+    )
+end
+
+200.times do
+  Revision.create(
+    title: Faker::Book.publisher,
+    paragraph: create_random_paragraph,
+    revisionable_id: rand(1..100),
+    revisionable_type: "Article"
+    )
+end
+
+x = 1
+100.times do
+  Revision.create(
+    title: Faker::Book.publisher,
+    paragraph: create_random_paragraph,
+    revisionable_id: x,
+    revisionable_type: "Article"
+    )
+  x += 1
+end
+
+600.times do
+  Revision.create(
+    title: Faker::Book.publisher,
+    paragraph: create_random_paragraph,
+    revisionable_id: rand(1..300),
+    revisionable_type: "Section"
+    )
+end
+
+x = 1
+300.times do
+  Revision.create(
+    title: Faker::Book.publisher,
+    paragraph: create_random_paragraph,
+    revisionable_id: x,
+    revisionable_type: "Section"
+    )
+  x += 1
+end
+
+
+

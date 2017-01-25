@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20170125174926) do
   create_table "articles", force: :cascade do |t|
     t.integer  "author_id"
     t.string   "publication_status"
-    t.integer  "cuurent_revision_id"
+    t.integer  "current_revision_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20170125174926) do
 
   create_table "notes", force: :cascade do |t|
     t.text     "comment"
-    t.integer  "section_id"
+    t.integer  "article_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20170125174926) do
   create_table "revisions", force: :cascade do |t|
     t.string   "title"
     t.text     "paragraph"
-    t.integer  "content_id"
     t.string   "revisionable_type"
     t.integer  "revisionable_id"
     t.datetime "created_at",        null: false
@@ -59,9 +58,10 @@ ActiveRecord::Schema.define(version: 20170125174926) do
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"
-    t.boolean  "admin"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.boolean  "admin",           default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
 end
+

@@ -16,23 +16,23 @@ end
 12.times do
   User.create(
     username: Faker::Internet.user_name,
-    password: "password"
+    password: "password1"
     )
 end
 
 User.create(
   username: "Dereck",
-  password: "password",
+  password: "password1",
   admin: true
   )
 User.create(
   username: "Mhar",
-  password: "password",
+  password: "password1",
   admin: true
   )
 User.create(
   username: "Kam",
-  password: "password",
+  password: "password1",
   admin: true
   )
 
@@ -141,4 +141,3 @@ Article.all.each do |article|
     )
   end
 end
-

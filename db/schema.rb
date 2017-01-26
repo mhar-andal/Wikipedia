@@ -17,10 +17,9 @@ ActiveRecord::Schema.define(version: 20170125174926) do
 
   create_table "articles", force: :cascade do |t|
     t.integer  "author_id"
-    t.string   "publication_status"
-    t.integer  "current_revision_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.string   "submission_status"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "bibliographies", force: :cascade do |t|
@@ -41,18 +40,18 @@ ActiveRecord::Schema.define(version: 20170125174926) do
   create_table "revisions", force: :cascade do |t|
     t.string   "title"
     t.text     "paragraph"
+    t.boolean  "publication_status", default: false
     t.string   "revisionable_type"
     t.integer  "revisionable_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.index ["revisionable_type", "revisionable_id"], name: "index_revisions_on_revisionable_type_and_revisionable_id", using: :btree
   end
 
   create_table "sections", force: :cascade do |t|
     t.integer  "article_id"
-    t.integer  "current_revision_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -64,4 +63,3 @@ ActiveRecord::Schema.define(version: 20170125174926) do
   end
 
 end
-

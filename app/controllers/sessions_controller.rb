@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(username: user_deets[:username])
+    p @user
     if @user
       if @user.authenticate(user_deets[:password])
         login_user

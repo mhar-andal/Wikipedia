@@ -9,11 +9,10 @@
     <%= f.label :title %>
     <%= f.text_field :title %>
   </p>
-  <p>
-    <%= f.label :paragraph %>
-    <%= f.text_field :paragraph %>
-  </p>
-  
+  <div>
+    <%= f.cktext_area :paragraph, rows: 10 %>
+  </div>
+
   <p>
     <%= f.submit "Create Article" %>
   </p>

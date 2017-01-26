@@ -10,8 +10,9 @@ class Section < ApplicationRecord
     end
     return nil
   end
-end
 
-def latest_update
-  self.revisions.all.last
+  def latest_update
+    self.revisions.all.last
+  end
+
 end

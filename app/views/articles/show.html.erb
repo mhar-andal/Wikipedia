@@ -12,14 +12,16 @@
 
 <hr>
 <% @article.sections.each do |section| %>
-	<% if logged_in %>
-		<h3><%= section.latest_update.title %></h3>
-    	<p><%= section.latest_update.paragraph.html_safe %></p>
-  	<% else  %>
-    	<h3><%= section.newest_revision.title %></h3>
-    	<p><%= section.newest_revision.paragraph.html_safe %></p>
+	<% if section.revisions.exists? %>
+		<% if logged_in %>
+			<h3><%= section.latest_update.title %></h3>
+			<p><%= section.latest_update.paragraph.html_safe %></p>
+		<% else  %>
+			<h3><%= section.newest_revision.title %></h3>
+			<p><%= section.newest_revision.paragraph.html_safe %></p>
+		<% end %>
+		<hr>
     <% end %>
-    <hr>
 <% end %>
 
 <h3>Notes</h3>

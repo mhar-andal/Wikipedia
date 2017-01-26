@@ -11,3 +11,7 @@ class Section < ApplicationRecord
     return nil
   end
 end
+
+def latest_update
+  self.revisions.all.last
+end

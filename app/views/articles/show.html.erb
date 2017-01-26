@@ -1,23 +1,23 @@
 <% if logged_in %>
 	<h1><%= @article.latest_update.title %></h1>
-	<p><%= @article.latest_update.paragraph %></p>
+	<p><%= @article.latest_update.paragraph.html_safe %></p>
 	<p>
 	<%= link_to 'Destroy', @article, method: :delete, data: { confirm: 'Are you sure?' } %>
 	<%= link_to 'Edit', edit_article_path(@article)%>
 	</p>
 <% else  %>
 	<h1><%= @article.newest_revision.title %></h1>
-	<p><%= @article.newest_revision.paragraph %></p>
+	<p><%= @article.newest_revision.paragraph.html_safe %></p>
 <% end %>
 
 <hr>
 <% @article.sections.each do |section| %>
 	<% if logged_in %>
 		<h3><%= section.latest_update.title %></h3>
-    	<p><%= section.latest_update.paragraph %></p>
+    	<p><%= section.latest_update.paragraph.html_safe %></p>
   	<% else  %>
     	<h3><%= section.newest_revision.title %></h3>
-    	<p><%= section.newest_revision.paragraph %></p>
+    	<p><%= section.newest_revision.paragraph.html_safe %></p>
     <% end %>
     <hr>
 <% end %>

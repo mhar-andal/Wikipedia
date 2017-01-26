@@ -1,0 +1,24 @@
+<h2><%= flash.alert %></h2>
+
+<h1>New Article Form</h1>
+<%= form_for :revision, url: articles_path(@article) do |f| %>
+  <% if @article.errors.any? %>
+    <% @article.errors.full_messages.each do |error| %>
+    <p><%= error %></p>
+    <% end %>
+  <% end %>
+
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :paragraph %>
+    <%= f.text_field :paragraph %>
+  </p>
+  
+  <p>
+    <%= f.submit "Create Article" %>
+  </p>
+
+<% end %>

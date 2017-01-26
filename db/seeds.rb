@@ -36,22 +36,25 @@ User.create(
   admin: true
   )
 
-x = 201
 100.times do
-  Article.create(
+  article = Article.create(
     author_id: rand(1..15),
-    publication_status: ["published", "unpublished", "needs sources"].sample,
-    current_revision_id: x
+    submission_status: ["submitted", "unsubmitted", "needs sources"].sample
     )
-  x += 1
 end
-x = 901
+
 300.times do
   Section.create(
-    article_id: rand(1..100),
-    current_revision_id: x
+    article_id: rand(1..100)
     )
-  x += 1
+end
+
+x = 1
+100.times do
+  Section.create(
+    article_id: x
+    )
+  x = x + 1
 end
 
 300.times do
@@ -80,6 +83,7 @@ x = 1
   Revision.create(
     title: Faker::Book.publisher,
     paragraph: create_random_paragraph,
+    publication_status: true,
     revisionable_id: x,
     revisionable_type: "Article"
     )
@@ -90,18 +94,51 @@ end
   Revision.create(
     title: Faker::Book.publisher,
     paragraph: create_random_paragraph,
+    publication_status: false,
     revisionable_id: rand(1..300),
     revisionable_type: "Section"
     )
 end
 
-x = 1
-300.times do
+x = 301
+100.times do
   Revision.create(
     title: Faker::Book.publisher,
     paragraph: create_random_paragraph,
+    publication_status: true,
     revisionable_id: x,
     revisionable_type: "Section"
     )
   x += 1
 end
+
+Article.all.each do |article|
+  if article.submission_status == "submitted"
+    article.revisions << Revision.new(
+    title: Faker::Book.publisher,
+    paragraph: create_random_paragraph,
+    publication_status: false
+    )
+  end
+end
+
+Article.all.each do |article|
+  if article.submission_status == "submitted"
+    article.sections.sample.revisions << Revision.new(
+    title: Faker::Book.publisher,
+    paragraph: create_random_paragraph,
+    publication_status: false
+    )
+  end
+end
+
+Article.all.each do |article|
+  if article.submission_status == "submitted"
+    article.sections.sample.revisions << Revision.new(
+    title: Faker::Book.publisher,
+    paragraph: create_random_paragraph,
+    publication_status: false
+    )
+  end
+end
+

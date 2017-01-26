@@ -141,4 +141,3 @@ Article.all.each do |article|
     )
   end
 end
-

@@ -1,16 +1,17 @@
 <div class="container">
   <div class="row">
+    <div class="col-md-10"></div>
     <div class="col-md-2">
       <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-    <button class="dropdown-item" type="button">Action</button>
-    <button class="dropdown-item" type="button">Another action</button>
-    <button class="dropdown-item" type="button">Something else here</button>
-  </div>
-</div>
+          <button id="dLabel" class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= @current_search %>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dLabel" id="dropdown-lang">
+            <li><a href="">Unpublished</a></li>
+            <li><a href="">Need sources</a></li>
+          </ul>
+        </div>
     </div>
   </div>
 </div>

@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   end
 
   def admin_panel
-    
+    @current_search = "Unpublished"
   end
 
 private

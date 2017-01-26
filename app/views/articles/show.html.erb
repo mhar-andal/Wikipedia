@@ -1,12 +1,25 @@
-<h1><%= @article.newest_revision.title %></h1>
-<p><%= @article.newest_revision.paragraph %></p>
+<% if logged_in %>
+	<h1><%= @article.latest_update.title %></h1>
+	<p><%= @article.latest_update.paragraph %></p>
+	<p>
+	<%= link_to 'Destroy', @article, method: :delete, data: { confirm: 'Are you sure?' } %>
+	<%= link_to 'Edit', edit_article_path(@article)%>
+	</p>
+<% else  %>
+	<h1><%= @article.newest_revision.title %></h1>
+	<p><%= @article.newest_revision.paragraph %></p>
+<% end %>
+
 <hr>
 <% @article.sections.each do |section| %>
-  <% if section.newest_revision %>
-    <h3><%= section.newest_revision.title %></h3>
-    <p><%= section.newest_revision.paragraph %></p>
+	<% if logged_in %>
+		<h3><%= section.latest_update.title %></h3>
+    	<p><%= section.latest_update.paragraph %></p>
+  	<% else  %>
+    	<h3><%= section.newest_revision.title %></h3>
+    	<p><%= section.newest_revision.paragraph %></p>
+    <% end %>
     <hr>
-  <% end %>
 <% end %>
 
 <h3>Notes</h3>
@@ -22,8 +35,4 @@
     <li><%= bib.resource_type %>: <%= bib.reference %></li>
   <% end %>
 </ul>
-<p>
-<%= link_to 'Destroy', @article, method: :delete, data: { confirm: 'Are you sure?' } %>
-<%= link_to 'Edit', edit_article_path(@article)%>
 
-</p>

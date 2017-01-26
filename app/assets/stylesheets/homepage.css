@@ -3,6 +3,12 @@ body {
   font-family: 'Inconsolata', monospace;
 }
 
+#errors {
+  color: red;
+  font-size: 18px;
+  text-align: center;
+}
+
 .container {
   width: 100% !important;
 }

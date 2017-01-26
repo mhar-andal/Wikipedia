@@ -1,0 +1,22 @@
+<h1><%= @article.current_revision.title %></h1>
+<p><%= @article.current_revision.paragraph %></p>
+<hr>
+<% @article.sections.each do |section| %>
+  <h3><%= section.current_revision.title %></h3>
+  <p><%= section.current_revision.paragraph %></p>
+  <hr>
+<% end %>
+
+<h3>Notes</h3>
+<ol>
+  <% @article.notes.each do |note| %>
+    <li><%= note.comment %>
+  <% end %>
+</ol>
+<hr>
+<h3>References</h3>
+<ul>
+  <% @article.bibliographies.each do |bib| %>
+    <li><%= bib.resource_type %>: <%= bib.reference %></li>
+  <% end %>
+</ul>

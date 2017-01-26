@@ -9,11 +9,6 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  def show
-    @article = Article.find(params[:id])
-    @article.revisions.find_by(publication_status: "true")
-  end
-
   def new
     @article = Article.new
 
@@ -38,7 +33,9 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-  	
+  	@article = Article.find(params[:id])
+  	puts "3" * 150
+  	redirect_to @article, notice: 'Article EDITED'
   end
 
   def destroy

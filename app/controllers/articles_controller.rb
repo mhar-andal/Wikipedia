@@ -44,9 +44,14 @@ class ArticlesController < ApplicationController
     redirect_to articles_url, notice: 'Article was successfully deleted.'
   end
 
+  def update_category
+    article = Article.find(params[:article_id])
+    article.update(category_id: params[:category_id])
+    redirect_to article_path(article)
+  end
+
   private
   	def article_params
     	params.require(:revision).permit(:title, :paragraph)
   	end
-
 end

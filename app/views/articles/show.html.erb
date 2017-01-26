@@ -1,10 +1,12 @@
-<h1><%= @article.revisions.last.title %></h1>
-<p><%= @article.revisions.last.paragraph %></p>
+<h1><%= @article.newest_revision.title %></h1>
+<p><%= @article.newest_revision.paragraph %></p>
 <hr>
 <% @article.sections.each do |section| %>
-  <h3><%= section.revisions.last.title %></h3>
-  <p><%= section.revisions.last.paragraph %></p>
-  <hr>
+  <% if section.newest_revision %>
+    <h3><%= section.newest_revision.title %></h3>
+    <p><%= section.newest_revision.paragraph %></p>
+    <hr>
+  <% end %>
 <% end %>
 
 <h3>Notes</h3>

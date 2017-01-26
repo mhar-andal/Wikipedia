@@ -1,8 +1,8 @@
 class ArticlesController < ApplicationController
   include SessionsHelper
   def index
-    # @articles = Article.alphabetical
-    @articles = Article.all
+    @articles = Article.alphabetical
+    # @articles = Article.all
   end
 
   def show
@@ -48,5 +48,5 @@ class ArticlesController < ApplicationController
   	def article_params
     	params.require(:revision).permit(:title, :paragraph)
   	end
-   
+
 end

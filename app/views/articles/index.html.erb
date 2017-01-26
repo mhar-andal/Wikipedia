@@ -2,7 +2,7 @@
   <h1>All articles:</h1>
   <ul>
   <% @articles.each do |article| %>
-    <li><%= link_to article.revisions.last.title, article %></li>
+    <li><%= link_to article.newest_revision.title, article %></li>
   <% end %>
   </ul>
 </div>

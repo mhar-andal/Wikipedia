@@ -25,6 +25,10 @@ class UsersController < ApplicationController
   def update
   end
 
+  def admin_panel
+    
+  end
+
 private
   def user_deets
       params.require(:user).permit(:username, :password)

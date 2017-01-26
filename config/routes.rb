@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :sessions, except: [:index, :edit, :update, :destroy]
   post '/sessions' => "sessions#create"
   delete '/sessions' => "sessions#destroy"
+  get '/adminpanel' => "users#admin_panel"
 end

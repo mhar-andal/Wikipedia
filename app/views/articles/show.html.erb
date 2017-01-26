@@ -1,6 +1,6 @@
 <% if logged_in %>
 	<h1><%= @article.latest_update.title %></h1>
-	<p><%= @article.latest_update.paragraph %></p>
+	<p><%= @article.latest_update.paragraph.html_safe %></p>
 	<p>
 	<%= link_to 'Destroy', @article, method: :delete, data: { confirm: 'Are you sure?' } %>
 	<%= link_to 'Edit', edit_article_path(@article)%>
@@ -35,4 +35,3 @@
     <li><%= bib.resource_type %>: <%= bib.reference %></li>
   <% end %>
 </ul>
-

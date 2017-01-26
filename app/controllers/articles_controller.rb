@@ -11,7 +11,6 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-
   end
 
   def create
@@ -20,15 +19,17 @@ class ArticlesController < ApplicationController
     @article.submission_status = "unsubmitted"
     @revision = Revision.new(article_params)
 
-    if @article.save
+    if @revision.title? && @revision.paragraph? && @article.save
     	@article.revisions << @revision
     	if @revision.save
       		redirect_to @article, notice: 'Article was successfully created.'
       	else
-      		render :new, status: 422
+      		render :new, status: 422 
       	end
     else
-      render :new, status: 422
+    	flash[:notice] = 'You need a title!' if !@revision.title?
+    	flash[:alert] = 'You need a paragraph!' if !@revision.paragraph?
+      	render :new
     end
   end
 

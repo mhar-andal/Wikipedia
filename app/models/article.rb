@@ -20,6 +20,10 @@ class Article < ApplicationRecord
     return nil
   end
 
+  def latest_update
+    self.revisions.all.last
+  end
+
   def self.alphabetical
     self.joins("JOIN revisions ON articles.id = revisions.revisionable_id AND revisions.publication_status = true").order('revisions.title')
   end

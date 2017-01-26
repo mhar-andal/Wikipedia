@@ -1,27 +1,43 @@
-<h1><%= @article.newest_revision.title %></h1>
-<% if logged_in %>
-<span>category: <%= @article.category.name %></span>
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Change Category<span class="caret"></span></a>
-    <ul class="dropdown-menu">
-      <% Category.all.each do |category| %>
-        <li><%= link_to category.name, "/articles/#{@article.id}/categories/#{category.id}", method: :put %></li>
-      <% end %>
-      <li role="separator" class="divider"></li>
-      <li><%= link_to "Create New Category", new_category_path %></a></li>
-    </ul>
-  </li>
-</div>
+<% if owner %>
+	<h1><%= @article.latest_update.title %></h1>
+  <span>category: <%= @article.category.name %></span>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Change Category<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <% Category.all.each do |category| %>
+            <li><%= link_to category.name, "/articles/#{@article.id}/categories/#{category.id}", method: :put %></li>
+          <% end %>
+          <li role="separator" class="divider"></li>
+          <li><%= link_to "Create New Category", new_category_path %></a></li>
+        </ul>
+      </li>
+    </div>
+	<p><%= @article.latest_update.paragraph.html_safe %></p>
+	<p>
+	<%= link_to 'Destroy', @article, method: :delete, data: { confirm: 'Are you sure?' } %>
+	<%= link_to 'Edit', edit_article_path(@article)%>
+	</p>
+<% else  %>
+	<h1><%= @article.newest_revision.title %></h1>
+	<p><%= @article.newest_revision.paragraph.html_safe %></p>
 <% end %>
-<p><%= @article.newest_revision.paragraph %></p>
+
 <hr>
 <% @article.sections.each do |section| %>
-  <% if section.newest_revision %>
-    <h3><%= section.newest_revision.title %></h3>
-    <p><%= section.newest_revision.paragraph %></p>
-    <hr>
-  <% end %>
+	<% if section.revisions.exists? %>
+		<% if owner %>
+			<h3><%= section.latest_update.title %></h3>
+			<p><%= section.latest_update.paragraph.html_safe %></p>
+			<hr>
+		<% else  %>
+			<% if section.newest_revision != nil %>
+				<h3><%= section.newest_revision.title %></h3>
+				<p><%= section.newest_revision.paragraph.html_safe %></p>
+				<hr>
+			<% end %>
+		<% end %>
+    <% end %>
 <% end %>
 
 <h3>Notes</h3>
@@ -37,8 +53,3 @@
     <li><%= bib.resource_type %>: <%= bib.reference %></li>
   <% end %>
 </ul>
-<p>
-<%= link_to 'Destroy', @article, method: :delete, data: { confirm: 'Are you sure?' } %>
-<%= link_to 'Edit', edit_article_path(@article)%>
-
-</p>

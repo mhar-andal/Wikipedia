@@ -35,6 +35,9 @@
             <% if logged_in %>
             <li><a href="/users/<%= current_user.id %>">Profile</a></li>
             <li><a href="#">Article Manager</a></li>
+            <% if is_admin %>
+            <li><a href="/adminpanel">Admin Panel</a></li>
+            <% end %>
             <li><%= link_to 'Logout', '/sessions', :method => 'delete' %></li>
             <% else %>
             <li><a href="/users/new">Register</a></li>

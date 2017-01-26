@@ -14,4 +14,8 @@ module SessionsHelper
   def current_user
    @current_user ||= User.find_by(id: session[:user_id])
   end
+
+  def owner
+    Article.find(params[:id]).author_id == session[:user_id]
+  end
 end

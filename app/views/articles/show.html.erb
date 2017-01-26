@@ -1,4 +1,4 @@
-<% if logged_in %>
+<% if owner %>
 	<h1><%= @article.latest_update.title %></h1>
 	<p><%= @article.latest_update.paragraph.html_safe %></p>
 	<p>
@@ -13,14 +13,17 @@
 <hr>
 <% @article.sections.each do |section| %>
 	<% if section.revisions.exists? %>
-		<% if logged_in %>
+		<% if owner %>
 			<h3><%= section.latest_update.title %></h3>
 			<p><%= section.latest_update.paragraph.html_safe %></p>
+			<hr>
 		<% else  %>
-			<h3><%= section.newest_revision.title %></h3>
-			<p><%= section.newest_revision.paragraph.html_safe %></p>
+			<% if section.newest_revision != nil %>
+				<h3><%= section.newest_revision.title %></h3>
+				<p><%= section.newest_revision.paragraph.html_safe %></p>
+				<hr>
+			<% end %>
 		<% end %>
-		<hr>
     <% end %>
 <% end %>
 

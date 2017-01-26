@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  include SessionsHelper
   def index
     # @articles = Article.alphabetical
     @articles = Article.all
@@ -21,19 +22,23 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new
     @article.author_id = current_user.id
-    @article.publication_status = "unpublished"
+    @article.submission_status = "unsubmitted"
     @revision = Revision.new(article_params)
 
-    @article.revisions << @revision
-    @article.current_revision_id = @revision.id
-    if @article.save && @revision.save
-      redirect_to @article, notice: 'Article was successfully created.'
+    if @article.save
+    	@article.revisions << @revision
+    	if @revision.save
+      		redirect_to @article, notice: 'Article was successfully created.'
+      	else
+      		render :new, status: 422
+      	end
     else
       render :new, status: 422
     end
   end
 
   def edit
+  	
   end
 
   def destroy
@@ -44,7 +49,7 @@ class ArticlesController < ApplicationController
 
   private
   	def article_params
-    	params.require(:article).permit(:title, :paragraph)
+    	params.require(:revision).permit(:title, :paragraph)
   	end
    
 end

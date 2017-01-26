@@ -1,9 +1,9 @@
-<h1><%= @article.current_revision.title %></h1>
-<p><%= @article.current_revision.paragraph %></p>
+<h1><%= @article.revisions.last.title %></h1>
+<p><%= @article.revisions.last.paragraph %></p>
 <hr>
 <% @article.sections.each do |section| %>
-  <h3><%= section.current_revision.title %></h3>
-  <p><%= section.current_revision.paragraph %></p>
+  <h3><%= section.revisions.last.title %></h3>
+  <p><%= section.revisions.last.paragraph %></p>
   <hr>
 <% end %>
 
@@ -20,3 +20,8 @@
     <li><%= bib.resource_type %>: <%= bib.reference %></li>
   <% end %>
 </ul>
+<p>
+<%= link_to 'Destroy', @article, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Edit', edit_article_path(@article)%>
+
+</p>

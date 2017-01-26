@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'welcome/index'
-
   root 'welcome#index'
   resources :articles do
     resources :section, except: [:show] do
@@ -12,5 +10,7 @@ Rails.application.routes.draw do
     resources :revisions, only: [:index, :show]
   end
   resources :users, except: [:index, :edit, :update, :destroy]
-
+  resources :sessions, except: [:index, :edit, :update, :destroy]
+  post '/sessions' => "sessions#create"
+  delete '/sessions' => "sessions#destroy"
 end

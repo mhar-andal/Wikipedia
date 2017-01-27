@@ -5,6 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+def rand_img
+  ['https://i.ytimg.com/vi/ptkytDOVFN0/maxresdefault.jpg',
+  'http://cuteotters.com/wordpress/wp-content/uploads/2015/12/ottersmall.jpg',
+'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQb0Pv5F9QKexljbmPuwPhL8ds5-Beuqo4eFtZz8NLxAoB53Kba'].sample
+end
+
 def create_random_paragraph
   paragraph = ""
   rand(5..20).times do
@@ -90,6 +97,7 @@ puts "revision 1"
   Revision.create(
     title: Faker::Book.publisher,
     paragraph: create_random_paragraph,
+    image_url: rand_img,
     revisionable_id: rand(1..100),
     revisionable_type: "Article"
     )
@@ -103,6 +111,7 @@ x = 1
   Revision.create(
     title: Faker::Book.publisher,
     paragraph: create_random_paragraph,
+    image_url: rand_img,
     publication_status: true,
     revisionable_id: x,
     revisionable_type: "Article"
@@ -117,6 +126,7 @@ puts "revision 3"
   Revision.create(
     title: Faker::Book.publisher,
     paragraph: create_random_paragraph,
+    image_url: rand_img,
     publication_status: false,
     revisionable_id: rand(1..300),
     revisionable_type: "Section"
@@ -130,6 +140,7 @@ x = 301
   Revision.create(
     title: Faker::Book.publisher,
     paragraph: create_random_paragraph,
+    image_url: rand_img,
     publication_status: true,
     revisionable_id: x,
     revisionable_type: "Section"
@@ -144,6 +155,7 @@ Article.all.each do |article|
     article.revisions << Revision.new(
     title: Faker::Book.publisher,
     paragraph: create_random_paragraph,
+    image_url: rand_img,
     publication_status: false
     )
   end
@@ -154,6 +166,7 @@ Article.all.each do |article|
     article.sections.sample.revisions << Revision.new(
     title: Faker::Book.publisher,
     paragraph: create_random_paragraph,
+    image_url: rand_img,
     publication_status: false
     )
   end
@@ -164,6 +177,7 @@ Article.all.each do |article|
     article.sections.sample.revisions << Revision.new(
     title: Faker::Book.publisher,
     paragraph: create_random_paragraph,
+    image_url: rand_img,
     publication_status: false
     )
   end

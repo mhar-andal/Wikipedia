@@ -12,7 +12,7 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-8">
           <div class="article-information">
-            <span class="article-title"><%= @featured_article.title %></span>
+            <span class="article-title"><a href="/articles/<%= @feat_article.id %>"><%= @featured_article.title %></a></span>
             <%= @featured_article.paragraph %>
           </div>
         </div>
@@ -32,23 +32,11 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-8">
           <div class="article-information">
-            <span class="article-title"><%= @newest_article.title %></span>
+            <span class="article-title"><a href="/articles/<%= @new_article.id %>"><%= @newest_article.title %></a></span>
             <%= @newest_article.paragraph %>
           </div>
         </div>
     </div>
-    </div>
-  </div>
-
-  <div class="row" id="row-2">
-    <div class="col-md-5 homepage-block">
-      <span class="homepage-headline">Most Viewed</span>
-      <hr>
-    </div>
-    <div class="col-md-2"></div>
-    <div class="col-md-5 homepage-block">
-      <span class="homepage-headline">On This Day</span>
-      <hr>
     </div>
   </div>
 </div>

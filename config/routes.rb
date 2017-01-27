@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   put '/articles/:article_id/categories/:category_id' => "articles#update_category"
   post '/sessions' => "sessions#create"
   delete '/sessions' => "sessions#destroy"
-  get '/adminpanel' => "users#admin_panel"
-  post '/admin_panel' => "users#post_admin_panel"
+  get '/users/:user_id/admin_panel' => "users#admin_panel"
+  post '/article/:id/publish' => "articles#update_publish"
+  post '/article/:id/deny' => "articles#deny"
 end

@@ -28,21 +28,6 @@ class UsersController < ApplicationController
   def admin_panel
     @current_search = "Unpublished"
     @unpublished = Article.where("submission_status = 'submitted'")
-
-    p "HI FROM ADMIN_PANEL!!!!!!!!!!!!"
-    p params
-    respond_to do |format|
-      format.html
-      format.json
-    end
-  end
-
-  def post_admin_panel
-    p "hello"
-    @current_search = "asd"
-    @unpublished = Article.where("submission_status = 'need sources'")
-
-    render :admin_panel
   end
 
 private

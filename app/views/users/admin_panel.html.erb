@@ -1,17 +1,18 @@
+<% if is_admin %>
 <div class="container">
   <div class="row">
     <div class="col-md-10"></div>
     <div class="col-md-2">
-      <div class="dropdown">
+      <!-- <div class="dropdown">
           <button id="dLabel" class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= @current_search %>
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dLabel" id="dropdown-lang">
-            <li><a href="">Unpublished</a></li>
-            <li><a href="">Need sources</a></li>
+            <li><a href="/users/<%= current_user.id %>/admin_panel/unpublished">Unpublished</a></li>
+            <li><a href="/users/<%= current_user.id %>/admin_panel/sources">Need sources</a></li>
           </ul>
-        </div>
+        </div> -->
     </div>
   </div>
 
@@ -24,11 +25,28 @@
 
     <div class="col-md-10">
       <% @unpublished.each do |article| %>
-      <div class="row"
-        <span class="article-title"><%= article.newest_revision.title %></span>
+      <div class="row">
+        <span class="article-title"><a href="/articles/<%= article.id %>"><%= article.newest_revision.title %></a></span>
+        <span class="article-author">submitted by: <%= article.author.username %>
       </div>
+      <form class="admin-panel-buttons" action="/article/<%= article.id %>/publish" method="post">
+        <button type = "submit" class = "btn btn-default btn-xs">
+          Publish
+        </button>
+      </form>
+      <form class="admin-panel-buttons" action="/article/<%= article.id %>/deny" method="post">
+        <button type = "submit" class = "btn btn-default btn-xs">
+          Send Back
+        </button>
+      </form>
+      <div class="row">&nbsp;</div>
+      <div class="row">&nbsp;</div>
+
       <% end %>
 
     </div>
   </div>
 </div>
+<% else %>
+<center><h1>Error: You need admin privledges to access this page</h1></center>
+<% end %>

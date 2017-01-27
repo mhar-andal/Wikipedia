@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   include SessionsHelper
+  skip_before_filter  :verify_authenticity_token
   def index
     @articles = Article.alphabetical
     # @articles = Article.all
@@ -78,6 +79,26 @@ class ArticlesController < ApplicationController
     article = Article.find(params[:article_id])
     article.update(category_id: params[:category_id])
     redirect_to article_path(article)
+  end
+
+  def update_publish
+    @article = Article.find(params[:id])
+    if @article.newest_revision(false).publication_status == false
+      @article.newest_revision.update_attributes(:publication_status => false)
+      @article.newest_revision(false).update_attributes(:publication_status => true)
+      @article.update_attributes(:submission_status => "unsubmitted")
+      @article.save
+    end
+
+    redirect_to "/users/#{current_user.id}/admin_panel"
+  end
+
+  def deny
+    @article = Article.find(params[:id])
+    @article.update_attributes(:submission_status => "needs sources")
+    @article.save
+
+    redirect_to "/users/#{current_user.id}/admin_panel"
   end
 
   private

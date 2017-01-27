@@ -1,0 +1,12 @@
+<h3>Notes</h3>
+<%= form_for :note, url: article_notes_path(@article.id) do |f| %>
+  
+  <% if @note.errors.any? %>
+    <%= render partial: 'errors/errors', locals: { errors: @note } %>
+  <% end %>
+  <%= render partial: "notes/new_note", locals: {f: f}%>
+   <p>
+    <%= f.submit "Create Note" %>
+  </p>
+
+<% end %>

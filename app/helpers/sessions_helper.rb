@@ -18,4 +18,9 @@ module SessionsHelper
   def owner
     Article.find(params[:id]).author_id == session[:user_id]
   end
+
+  def article_owner
+    Article.find(params[:article_id]).author_id == session[:user_id]
+  end
 end
+

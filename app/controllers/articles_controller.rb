@@ -59,7 +59,7 @@ class ArticlesController < ApplicationController
     	if @revision.save
       		redirect_to @article, notice: 'Article was updated.'
       	else
-      		render :edit, status: 422 
+      		render :edit, status: 422
       	end
     else
     	flash[:notice] = 'You need a title!' if !@revision.title?
@@ -84,7 +84,6 @@ class ArticlesController < ApplicationController
   	def article_params
     	params.require(:revision).permit(:title, :paragraph)
   	end
-<<<<<<< HEAD
 
   	def bib_params
   		params.require(:revision).permit(:reference, :resource_type)
@@ -93,6 +92,4 @@ class ArticlesController < ApplicationController
   	def note_params
   		params.require(:revision).permit(:comment)
   	end
-=======
->>>>>>> c30601b687d18f0d32d511d55282d66b5135f1c7
 end

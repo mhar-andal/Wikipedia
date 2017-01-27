@@ -24,47 +24,26 @@
 <% end %>
 
 <hr>
+<h2>Sections</h2>
+<%= link_to 'New', new_article_section_path(@article.id) if owner%>
 <% @article.sections.each do |section| %>
 	<% if section.revisions.exists? %>
-		<% if owner %>
-			<h3><%= section.latest_update.title %></h3>
-			<p><%= section.latest_update.paragraph.html_safe %></p>
-			<hr>
-		<% else  %>
-			<% if section.newest_revision != nil %>
-				<h3><%= section.newest_revision.title %></h3>
-				<p><%= section.newest_revision.paragraph.html_safe %></p>
-				<hr>
-			<% end %>
-		<% end %>
+		<%= render partial: 'sections/show', locals: { section: section } %>
     <% end %>
 <% end %>
-
-<h3>Notes</h3>
-<%= link_to 'New', new_article_note_path(@article.id)%>
+<hr>
+<h2>Notes</h2>
+<%= link_to 'New', new_article_note_path(@article.id) if owner%>
 <ol>
-
   <% @article.notes.each do |note| %>
-    <li><%= note.comment %>
-    <% if owner %>
-	<p>
-	<%= link_to 'Delete', article_note_path(@article.id, note.id), method: :delete, data: { confirm: 'Are you sure?' } %>
-	<%= link_to 'Edit', edit_article_note_path(@article.id, note.id)%>
-	</p>
-	<% end %>
+    <%= render partial: 'notes/show', locals: { note: note } %>
   <% end %>
 </ol>
 <hr>
-<h3>References</h3>
-<%= link_to 'New', new_article_bibliography_path(@article.id)%>
+<h2>References</h2>
+<%= link_to 'New', new_article_bibliography_path(@article.id) if owner%>
 <ul>
   <% @article.bibliographies.each do |bib| %>
-    <li><%= bib.resource_type %>: <%= bib.reference %></li>
-    <% if owner %>
-	<p>
-	<%= link_to 'Delete', article_bibliography_path(@article.id, bib.id), method: :delete, data: { confirm: 'Are you sure?' } %>
-	<%= link_to 'Edit', edit_article_bibliography_path(@article.id, bib.id)%>
-	</p>
-	<% end %>
+    <%= render partial: 'bibliographies/show', locals: { bib: bib } %>
   <% end %>
 </ul>

@@ -8,6 +8,10 @@ module UserHelper
   end
 
   def is_admin
-    current_user.admin
+    if logged_in
+      current_user.admin
+    else
+      false
+    end
   end
 end

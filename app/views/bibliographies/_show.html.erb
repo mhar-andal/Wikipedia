@@ -1,0 +1,9 @@
+<div id="bib_<%=bib.id%>">
+	<li><%= bib.resource_type %>: <%= bib.reference %></li>
+    <% if owner %>
+		<p>
+			<%= link_to 'Delete', article_bibliography_path(@article.id, bib.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+			<%= link_to 'Edit', edit_article_bibliography_path(@article.id, bib.id)%>
+		</p>
+	<% end %>
+</div>

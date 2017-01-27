@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   include SessionsHelper
+  skip_before_filter  :verify_authenticity_token
   def index
     @articles = Article.alphabetical
     # @articles = Article.all
@@ -17,28 +18,17 @@ class ArticlesController < ApplicationController
     @article = Article.new
     @article.author_id = current_user.id
     @article.submission_status = "unsubmitted"
-    revision = Revision.new(article_params)
+    @revision = Revision.new(article_params)
     @article.category_id = params[:category_id]
 
-    if revision.title? && revision.paragraph? && @article.save
-    	@article.revisions << revision
-    	if revision.save
-    		note = Note.new(note_params)
-    		if note.comment?
-    			@article.notes << note
-    		end
-    		bib = Bibliography.new(bib_params)
-    		if bib.reference? && bib.resource_type?
-    			@article.bibliographies << bib
-    		end
-      		redirect_to @article, notice: 'Article was successfully created.'
-      	else
-      		render :new, status: 422
-      	end
+    if @revision.title? && @revision.paragraph? && @article.save
+    	@article.revisions << @revision
+      redirect_to @article, notice: 'Article was successfully created.'
     else
+      flash.clear
     	flash[:notice] = 'You need a title!' if !@revision.title?
     	flash[:alert] = 'You need a paragraph!' if !@revision.paragraph?
-      	render :new
+      render :new
     end
   end
 
@@ -56,15 +46,12 @@ class ArticlesController < ApplicationController
   	@revision = Revision.new(article_params)
   	if @revision.title? && @revision.paragraph?
   		@article.revisions << @revision
-    	if @revision.save
-      		redirect_to @article, notice: 'Article was updated.'
-      	else
-      		render :edit, status: 422
-      	end
+      redirect_to @article, notice: 'Article was updated.'
     else
+      flash.clear
     	flash[:notice] = 'You need a title!' if !@revision.title?
     	flash[:alert] = 'You need a paragraph!' if !@revision.paragraph?
-      	redirect_to edit_article_path
+      redirect_to edit_article_path
     end
   end
 
@@ -80,6 +67,26 @@ class ArticlesController < ApplicationController
     redirect_to article_path(article)
   end
 
+  def update_publish
+    @article = Article.find(params[:id])
+    if @article.newest_revision(false).publication_status == false
+      @article.newest_revision.update_attributes(:publication_status => false)
+      @article.newest_revision(false).update_attributes(:publication_status => true)
+      @article.update_attributes(:submission_status => "unsubmitted")
+      @article.save
+    end
+
+    redirect_to "/users/#{current_user.id}/admin_panel"
+  end
+
+  def deny
+    @article = Article.find(params[:id])
+    @article.update_attributes(:submission_status => "needs sources")
+    @article.save
+
+    redirect_to "/users/#{current_user.id}/admin_panel"
+  end
+
   private
   	def article_params
     	params.require(:revision).permit(:title, :paragraph)
@@ -91,4 +98,5 @@ class ArticlesController < ApplicationController
   	def note_params
   		params.require(:revision).permit(:comment)
   	end
+
 end

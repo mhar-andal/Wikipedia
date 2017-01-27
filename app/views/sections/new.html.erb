@@ -1,0 +1,21 @@
+<h1>New Section</h1>
+
+<%= form_for :revision, url: article_sections_path(@article.id) do |f| %>
+  
+  <% if @article.errors.any? %>
+    <%= render partial: 'errors/errors', locals: { errors: @article } %>
+  <% end %>
+
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title, :size=>"50" %>
+  </p>
+  <div>
+    <%= f.cktext_area :paragraph, rows: 10 %>
+  </div>
+  
+  <p>
+    <%= f.submit "Create Section" %>
+  </p>
+
+<% end %>

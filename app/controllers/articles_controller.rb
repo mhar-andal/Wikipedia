@@ -18,6 +18,7 @@ class ArticlesController < ApplicationController
     @article.author_id = current_user.id
     @article.submission_status = "unsubmitted"
     revision = Revision.new(article_params)
+    @article.category_id = params[:category_id]
 
     if revision.title? && revision.paragraph? && @article.save
     	@article.revisions << revision
@@ -32,7 +33,7 @@ class ArticlesController < ApplicationController
     		end
       		redirect_to @article, notice: 'Article was successfully created.'
       	else
-      		render :new, status: 422 
+      		render :new, status: 422
       	end
     else
     	flash[:notice] = 'You need a title!' if !@revision.title?
@@ -73,10 +74,17 @@ class ArticlesController < ApplicationController
     redirect_to articles_url, notice: 'Article was successfully deleted.'
   end
 
+  def update_category
+    article = Article.find(params[:article_id])
+    article.update(category_id: params[:category_id])
+    redirect_to article_path(article)
+  end
+
   private
   	def article_params
     	params.require(:revision).permit(:title, :paragraph)
   	end
+<<<<<<< HEAD
 
   	def bib_params
   		params.require(:revision).permit(:reference, :resource_type)
@@ -85,4 +93,6 @@ class ArticlesController < ApplicationController
   	def note_params
   		params.require(:revision).permit(:comment)
   	end
+=======
+>>>>>>> c30601b687d18f0d32d511d55282d66b5135f1c7
 end

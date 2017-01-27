@@ -1,0 +1,19 @@
+<h1>Edit Section Form</h1>
+<% if @article.errors.any? %>
+    <%= render partial: 'errors/errors', locals: { errors: @article } %>
+<% end %>
+
+<%= form_for @revision, url: article_section_path do |f| %>
+
+<p>
+	<%= f.label :title %>
+	<%= f.text_field :title %>
+</p>
+
+<p>
+<div>
+	<%= f.cktext_area :paragraph, rows: 10 %>
+<div>	
+</p>
+<%= f.submit %>
+<% end %>

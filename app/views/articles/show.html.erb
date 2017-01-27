@@ -20,6 +20,7 @@
 	</p>
 <% else  %>
 	<h1><%= @article.newest_revision.title %></h1>
+	<p><%= "<img src='#{@article.newest_revision.image_url}'>".html_safe %></p>
 	<p><%= @article.newest_revision.paragraph.html_safe %></p>
 <% end %>
 

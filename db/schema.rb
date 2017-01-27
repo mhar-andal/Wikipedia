@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20170126213524) do
   create_table "revisions", force: :cascade do |t|
     t.string   "title"
     t.text     "paragraph"
+    t.string   "image_url"
     t.boolean  "publication_status", default: false
     t.string   "revisionable_type"
     t.integer  "revisionable_id"

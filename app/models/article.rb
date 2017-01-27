@@ -31,4 +31,23 @@ class Article < ApplicationRecord
   def self.alphabetical
     self.joins("JOIN revisions ON articles.id = revisions.revisionable_id AND revisions.publication_status = true").order('revisions.title')
   end
+
+  def up_for_publication?
+    published_id = self.newest_revision ? self.newest_revision.id : 0
+    unpublished_id = self.newest_revision(false) ? self.newest_revision(false).id : 0
+    p "************************************"
+    p self
+    p "published_id: #{published_id}"
+    p "unpubulished_id: #{unpublished_id}"
+    p "************************************"
+    if published_id < unpublished_id
+      return true
+    end
+    self.sections.each do |section|
+      if section.up_for_publication?
+        return true
+      end
+    end
+    return false
+  end
 end

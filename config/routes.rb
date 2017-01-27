@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :users, except: [:index, :edit, :update, :destroy]
   resources :sessions, except: [:index, :edit, :update, :destroy]
   resources :categories, only: [:new, :create]
+  get '/users/:id/article_manager' => "users#article_manager", as: :article_manager
+  # post '/users/:id/article_manager' => "users#post_article_manager"
   put '/articles/:article_id/categories/:category_id' => "articles#update_category"
   post '/sessions' => "sessions#create"
   delete '/sessions' => "sessions#destroy"

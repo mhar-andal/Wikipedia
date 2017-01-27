@@ -1,0 +1,14 @@
+<h1>Edit Note Form</h1>
+<% if @article.errors.any? %>
+    <%= render partial: 'errors/errors', locals: { errors: @article } %>
+<% end %>
+
+<%= form_for @note, url: article_note_path do |f| %>
+
+<p>
+	<%= f.label :notes %>
+    <%= f.text_field :comment, :size=>"100" %>
+</p>
+
+<%= f.submit %>
+<% end %>

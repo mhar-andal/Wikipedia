@@ -141,3 +141,14 @@ Article.all.each do |article|
     )
   end
 end
+
+categories = ["food", "music", "math", "science", "literature", "animals"]
+categories.each do |category|
+  Category.create(
+    name: category
+    )
+end
+
+Article.all.each do |article|
+  article.update_attributes(category_id: rand(1..6))
+end

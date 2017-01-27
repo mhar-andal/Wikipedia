@@ -1,17 +1,27 @@
 <h1>New Article Form</h1>
 <%= form_for :revision, url: articles_path(@article) do |f| %>
-  
+
   <% if @article.errors.any? %>
     <%= render partial: 'errors/errors', locals: { errors: @article } %>
   <% end %>
 
   <p>
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :size=>"50" %>
   </p>
   <div>
     <%= f.cktext_area :paragraph, rows: 10 %>
   </div>
+  <h3>Notes</h3>
+  <%= render partial: "notes/new_note", locals: {f: f}%>
+  <h3>Bibliography</h3>
+  <%= render partial: "bibliographies/new_bibliography", locals: {f: f}%>
+  <span>Set category: </span>
+  <select name="category_id">
+    <% Category.all.each do |category| %>
+      <option value=<%= category.id %>><%= category.name %></option>
+    <% end %>
+  </select>
 
   <p>
     <%= f.submit "Create Article" %>

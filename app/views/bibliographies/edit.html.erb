@@ -1,0 +1,18 @@
+<h1>Edit Note Form</h1>
+<% if @article.errors.any? %>
+    <%= render partial: 'errors/errors', locals: { errors: @article } %>
+<% end %>
+
+<%= form_for @bib, url: article_bibliography_path do |f| %>
+
+<p>
+	<%= f.label :reference %>
+    <%= f.text_field :reference, :size=>"100" %>
+</p>
+<p>
+	<%= f.label :resource_type %>
+    <%= f.text_field :resource_type, :size=>"50" %>
+</p>
+
+<%= f.submit %>
+<% end %>

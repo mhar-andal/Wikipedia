@@ -34,7 +34,7 @@
           <ul class="dropdown-menu">
             <% if logged_in %>
             <li><a href="/users/<%= current_user.id %>">Profile</a></li>
-            <li><a href="#">Article Manager</a></li>
+            <li><a href="/users/<%= current_user.id %>/article_manager">Article Manager</a></li>
             <% if is_admin %>
             <li><a href="/users/<%= current_user.id %>/admin_panel">Admin Panel</a></li>
             <% end %>

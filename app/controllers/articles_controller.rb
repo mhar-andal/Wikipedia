@@ -91,4 +91,12 @@ class ArticlesController < ApplicationController
   	def article_params
     	params.require(:revision).permit(:title, :paragraph)
   	end
+
+  	def bib_params
+  		params.require(:revision).permit(:reference, :resource_type)
+  	end
+  	def note_params
+  		params.require(:revision).permit(:comment)
+  	end
+
 end

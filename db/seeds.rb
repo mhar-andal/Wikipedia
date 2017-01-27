@@ -13,6 +13,13 @@ def create_random_paragraph
   paragraph
 end
 
+categories = ["food", "music", "math", "science", "literature", "animals"]
+categories.each do |category|
+  Category.create(
+    name: category
+    )
+end
+
 12.times do
   User.create(
     username: Faker::Internet.user_name,
@@ -36,12 +43,18 @@ User.create(
   admin: true
   )
 
+puts "articles"
+
 100.times do
   article = Article.create(
     author_id: rand(1..15),
-    submission_status: ["submitted", "unsubmitted", "needs sources"].sample
+    submission_status: ["submitted", "unsubmitted", "needs sources"].sample,
+    category_id: rand(1..6)
     )
+    p article.errors
 end
+
+puts "sections"
 
 300.times do
   Section.create(
@@ -57,6 +70,8 @@ x = 1
   x = x + 1
 end
 
+puts "notes and bib"
+
 300.times do
   Note.create(
     comment: Faker::ChuckNorris.fact,
@@ -69,6 +84,8 @@ end
     )
 end
 
+puts "revision 1"
+
 200.times do
   Revision.create(
     title: Faker::Book.publisher,
@@ -77,6 +94,9 @@ end
     revisionable_type: "Article"
     )
 end
+
+puts "revision 2"
+
 
 x = 1
 100.times do
@@ -90,6 +110,9 @@ x = 1
   x += 1
 end
 
+puts "revision 3"
+
+
 600.times do
   Revision.create(
     title: Faker::Book.publisher,
@@ -99,6 +122,8 @@ end
     revisionable_type: "Section"
     )
 end
+
+puts "revision 3"
 
 x = 301
 100.times do
@@ -111,6 +136,8 @@ x = 301
     )
   x += 1
 end
+
+puts "article revisions"
 
 Article.all.each do |article|
   if article.submission_status == "submitted"
@@ -142,13 +169,4 @@ Article.all.each do |article|
   end
 end
 
-categories = ["food", "music", "math", "science", "literature", "animals"]
-categories.each do |category|
-  Category.create(
-    name: category
-    )
-end
-
-Article.all.each do |article|
-  article.update_attributes(category_id: rand(1..6))
-end
+puts "categories"

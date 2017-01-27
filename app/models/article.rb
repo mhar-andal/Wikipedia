@@ -20,6 +20,10 @@ class Article < ApplicationRecord
     return nil
   end
 
+  def self.newest_published
+    self.all.order(created_at: :desc).find {|article| article.newest_revision != nil}
+  end
+
   def latest_update
     self.revisions.all.last
   end

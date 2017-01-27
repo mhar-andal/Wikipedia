@@ -59,7 +59,7 @@ class ArticlesController < ApplicationController
     	if @revision.save
       		redirect_to @article, notice: 'Article was updated.'
       	else
-      		render :edit, status: 422 
+      		render :edit, status: 422
       	end
     else
     	flash[:notice] = 'You need a title!' if !@revision.title?

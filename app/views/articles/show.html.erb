@@ -41,15 +41,30 @@
 <% end %>
 
 <h3>Notes</h3>
+<%= link_to 'New', new_article_note_path(@article.id)%>
 <ol>
+
   <% @article.notes.each do |note| %>
     <li><%= note.comment %>
+    <% if owner %>
+	<p>
+	<%= link_to 'Delete', article_note_path(@article.id, note.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+	<%= link_to 'Edit', edit_article_note_path(@article.id, note.id)%>
+	</p>
+	<% end %>
   <% end %>
 </ol>
 <hr>
 <h3>References</h3>
+<%= link_to 'New', new_article_bibliography_path(@article.id)%>
 <ul>
   <% @article.bibliographies.each do |bib| %>
     <li><%= bib.resource_type %>: <%= bib.reference %></li>
+    <% if owner %>
+	<p>
+	<%= link_to 'Delete', article_bibliography_path(@article.id, bib.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+	<%= link_to 'Edit', edit_article_bibliography_path(@article.id, bib.id)%>
+	</p>
+	<% end %>
   <% end %>
 </ul>

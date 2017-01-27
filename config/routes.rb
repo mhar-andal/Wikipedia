@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   get '/users/:user_id/admin_panel' => "users#admin_panel"
   post '/article/:id/publish' => "articles#update_publish"
   post '/article/:id/deny' => "articles#deny"
+  post '/article/:id/request_submision' => "articles#request_submission"
 end

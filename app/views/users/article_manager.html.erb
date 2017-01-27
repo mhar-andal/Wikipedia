@@ -19,6 +19,9 @@
     <% else %>
       <li><%= link_to article.newest_revision(false).title, article %></li>
     <% end %>
+    <% if params[:filter_by] == "unpublished" %>
+      <%= link_to "submit for review", "/article/#{article.id}/request_submision", method: :post %>
+    <% end %>
   <% end %>
   </ul>
 </div>

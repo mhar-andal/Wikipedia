@@ -69,11 +69,36 @@ class ArticlesController < ApplicationController
 
   def update_publish
     @article = Article.find(params[:id])
-    if @article.newest_revision(false).publication_status == false
+    if @article.newest_revision == nil
+      @article.newest_revision(false).update_attributes(:publication_status => true)
+      @article.update_attributes(:submission_status => "unsubmitted")
+      @article.save
+      @article.sections.each do |section|
+        if section.newest_revision
+          section.newest_revision.update_attributes(:publication_status => false)
+          section.newest_revision(false).update_attributes(:publication_status => true)
+          section.save
+        elsif section.newest_revision(false)
+          section.newest_revision(false).update_attributes(:publication_status => true)
+          section.save
+        end
+      end
+    elsif @article.newest_revision(false).publication_status == false
       @article.newest_revision.update_attributes(:publication_status => false)
       @article.newest_revision(false).update_attributes(:publication_status => true)
       @article.update_attributes(:submission_status => "unsubmitted")
       @article.save
+      @article.sections.each do |section|
+        if section.newest_revision
+          section.newest_revision.update_attributes(:publication_status => false)
+          section.newest_revision(false).update_attributes(:publication_status => true)
+          section.save
+        elsif section.newest_revision(false)
+          section.newest_revision(false).update_attributes(:publication_status => true)
+          section.save
+        end
+      end
+
     end
 
     redirect_to "/users/#{current_user.id}/admin_panel"
@@ -85,6 +110,14 @@ class ArticlesController < ApplicationController
     @article.save
 
     redirect_to "/users/#{current_user.id}/admin_panel"
+  end
+
+  def request_submission
+    @article = Article.find(params[:id])
+    @article.update_attributes(:submission_status => "submitted")
+    @article.save
+
+    redirect_to "/users/#{current_user.id}/article_manager?filter_by=unpublished"
   end
 
   private

@@ -26,7 +26,7 @@
     <div class="col-md-10">
       <% @unpublished.each do |article| %>
       <div class="row">
-        <span class="article-title"><a href="/articles/<%= article.id %>"><%= article.newest_revision.title %></a></span>
+        <span class="article-title"><a href="/articles/<%= article.id %>"><%= article.newest_revision(false).title %></a></span>
         <span class="article-author">submitted by: <%= article.author.username %>
       </div>
       <form class="admin-panel-buttons" action="/article/<%= article.id %>/publish" method="post">

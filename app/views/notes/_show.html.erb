@@ -1,0 +1,9 @@
+<div id="note_<%=note.id%>">
+	<li><%= note.comment %>
+    <% if owner %>
+		<p>
+			<%= link_to 'Delete', article_note_path(@article.id, note.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+			<%= link_to 'Edit', edit_article_note_path(@article.id, note.id)%>
+		</p>
+	<% end %>
+</div>

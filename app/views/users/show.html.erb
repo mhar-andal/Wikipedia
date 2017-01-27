@@ -1,7 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <span class="profile-username"><%= current_user.username %></span> <span class="profile-title"><%= title_string %></span>
+      <% if @user %>
+      <span class="profile-username"><%= @user.username %></span> <span class="profile-title"><%= title_string %></span>
+      <% else %>
+      <center><h1>Error: Account not found</h1></center>
+      <% end %>
     </div>
   </div>
 </div>

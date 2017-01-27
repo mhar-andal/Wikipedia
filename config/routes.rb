@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   post '/sessions' => "sessions#create"
   delete '/sessions' => "sessions#destroy"
   get '/adminpanel' => "users#admin_panel"
+  post '/admin_panel' => "users#post_admin_panel"
 end

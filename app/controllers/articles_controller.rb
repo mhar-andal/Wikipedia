@@ -17,28 +17,17 @@ class ArticlesController < ApplicationController
     @article = Article.new
     @article.author_id = current_user.id
     @article.submission_status = "unsubmitted"
-    revision = Revision.new(article_params)
+    @revision = Revision.new(article_params)
     @article.category_id = params[:category_id]
 
-    if revision.title? && revision.paragraph? && @article.save
-    	@article.revisions << revision
-    	if revision.save
-    		note = Note.new(note_params)
-    		if note.comment?
-    			@article.notes << note
-    		end
-    		bib = Bibliography.new(bib_params)
-    		if bib.reference? && bib.resource_type?
-    			@article.bibliographies << bib
-    		end
-      		redirect_to @article, notice: 'Article was successfully created.'
-      	else
-      		render :new, status: 422
-      	end
+    if @revision.title? && @revision.paragraph? && @article.save
+    	@article.revisions << @revision
+      redirect_to @article, notice: 'Article was successfully created.'
     else
+      flash.clear
     	flash[:notice] = 'You need a title!' if !@revision.title?
     	flash[:alert] = 'You need a paragraph!' if !@revision.paragraph?
-      	render :new
+      render :new
     end
   end
 
@@ -56,15 +45,12 @@ class ArticlesController < ApplicationController
   	@revision = Revision.new(article_params)
   	if @revision.title? && @revision.paragraph?
   		@article.revisions << @revision
-    	if @revision.save
-      		redirect_to @article, notice: 'Article was updated.'
-      	else
-      		render :edit, status: 422
-      	end
+      redirect_to @article, notice: 'Article was updated.'
     else
+      flash.clear
     	flash[:notice] = 'You need a title!' if !@revision.title?
     	flash[:alert] = 'You need a paragraph!' if !@revision.paragraph?
-      	redirect_to edit_article_path
+      redirect_to edit_article_path
     end
   end
 
@@ -83,13 +69,5 @@ class ArticlesController < ApplicationController
   private
   	def article_params
     	params.require(:revision).permit(:title, :paragraph)
-  	end
-
-  	def bib_params
-  		params.require(:revision).permit(:reference, :resource_type)
-  	end
-
-  	def note_params
-  		params.require(:revision).permit(:comment)
   	end
 end

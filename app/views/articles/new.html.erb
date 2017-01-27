@@ -12,17 +12,12 @@
   <div>
     <%= f.cktext_area :paragraph, rows: 10 %>
   </div>
-  <h3>Notes</h3>
-  <%= render partial: "notes/new_note", locals: {f: f}%>
-  <h3>Bibliography</h3>
-  <%= render partial: "bibliographies/new_bibliography", locals: {f: f}%>
-  <span>Set category: </span>
+  <h3>Category</h3>
   <select name="category_id">
     <% Category.all.each do |category| %>
       <option value=<%= category.id %>><%= category.name %></option>
     <% end %>
   </select>
-
   <p>
     <%= f.submit "Create Article" %>
   </p>
